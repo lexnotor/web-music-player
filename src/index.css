@@ -1,4 +1,32 @@
+@font-face {
+    font-family: 'Volkhov';
+    src: url('./asserts/fonts/Volkhov-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Volkhov';
+    src: url('./asserts/fonts/Volkhov-Bold.ttf');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Volkhov';
+    src: url('./asserts/fonts/Volkhov-BoldItalic.ttf');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Volkhov';
+    src: url('./asserts/fonts/Volkhov-Italic.ttf');
+    font-style: italic;
+}
+
 body {
     margin: 0px;
     padding: 0px;
+}
+
+* {
+    font-family: 'Comfortaa';
 }
