@@ -3,6 +3,7 @@
     min-width: 150px;
     max-width: 300px;
     background-color: #141726;
+    color: white;
     padding: 20px 15px;
     box-sizing: border-box;
 }
@@ -13,3 +14,4 @@
         position: fixed;
     }
 }
+
