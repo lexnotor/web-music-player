@@ -22,9 +22,18 @@
     font-style: italic;
 }
 
+:root {
+    --color-white: white;
+    --color-dark-blue: #141726;
+    --color-accent-blue: #222640;
+    --color-blue: #4A678C;
+    --color-light-blue: #8EACBF;
+}
+
 body {
     margin: 0px;
     padding: 0px;
+    color: white;
 }
 
 * {
