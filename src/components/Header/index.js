@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { refleshToken } from '../../redux';
+import { refleshToken, setArtiste } from '../../redux';
 import './style.css'
 
 const Header = () => {
@@ -9,14 +9,31 @@ const Header = () => {
     const token = useSelector(state => state.tokens);
     const dispatch = useDispatch();
 
-    const changeText = async (e) => {
+    const changeText =  (e) => {
         setSearchText(e.target.value);
-        if (token.expire_at < Date.now())
+        if (token.expire_at < Date.now()) {
             dispatch(refleshToken);
+            console.log('object');
+        }
+            
     }
 
-    const search = (e) => {
-
+    const search = () => {
+        if(searchText.trim() === '') return;
+        const baseURI = 'https://api.spotify.com/v1/search';
+        const options = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${token.token_type} ${token.access_token}`,
+            }
+        }
+        const param = `?q=${encodeURI(searchText)}&type=artist`;
+        return (
+            (dispatcher) => fetch(baseURI + param, options)
+                .then(response => response.json())
+                .then(data => dispatcher(setArtiste(data.artists.items)))
+        )
     }
 
     return (
@@ -35,7 +52,7 @@ const Header = () => {
                     />
                     <button
                         className='btn-search'
-                        onClick={search}
+                        onClick={() => dispatch(search())}
                     >Search</button>
                 </div>
                 <div className='account-container'>
