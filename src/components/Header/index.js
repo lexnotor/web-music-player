@@ -13,7 +13,6 @@ const Header = () => {
         setSearchText(e.target.value);
         if (token.expire_at < Date.now()) {
             dispatch(refleshToken);
-            console.log('object');
         }
             
     }
@@ -28,7 +27,7 @@ const Header = () => {
                 'Authorization': `${token.token_type} ${token.access_token}`,
             }
         }
-        const param = `?q=${encodeURI(searchText)}&type=artist`;
+        const param = `?q=${encodeURI(searchText)}&type=artist&limit=40`;
         return (
             (dispatcher) => fetch(baseURI + param, options)
                 .then(response => response.json())

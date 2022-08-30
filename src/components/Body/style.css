@@ -1,5 +1,13 @@
 .body-container {
     background-color: #141726;
     width: 80vw;
-    min-height: 100vh;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.artistes-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start
 }
