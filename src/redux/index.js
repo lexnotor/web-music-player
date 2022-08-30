@@ -1,5 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { Buffer } from "buffer";
+import { album_template } from "../components/Album/constante";
 import { artiste_templates } from "../components/Artiste/constante";
 import { track_template } from "../components/Track/constante";
 
@@ -43,6 +44,25 @@ const track_slice = createSlice({
         }
     }
 })
+const album_slice = createSlice({
+    name: 'album',
+    initialState: [album_template],
+    reducers: {
+        addAlbum: (state, action) => {
+            const isFind = state.find((album) => album.id === action.payload.id);
+            if (!isFind) state.push(action.payload)
+        },
+        setAlbum: (state, action) => {
+            state.splice(0, state.length, ...action.payload)
+        },
+        deleteAlbum: (state, action) => {
+            const index = state.findIndex((album) => album.id === action.payload.id)
+            if (index > -1) {
+                state.splice(index, 1)
+            }
+        }
+    }
+})
 
 const token_slice = createSlice({
     name: 'tokens',
@@ -63,6 +83,7 @@ const token_slice = createSlice({
 /*Les actions_creator*/
 export const { addArtiste, setArtiste, deleteArtiste } = artiste_slice.actions;
 export const { addTrack, setTrack, deleteTrack } = track_slice.actions;
+export const { addAlbum, setAlbum, deleteAlbum } = album_slice.actions;
 export const { setToken } = token_slice.actions;
 
 /*token middleware */
@@ -92,6 +113,7 @@ export const store = configureStore({
     reducer: {
         artistes: artiste_slice.reducer,
         tracks: track_slice.reducer,
+        albums: album_slice.reducer,
         tokens: token_slice.reducer
     }
 })

@@ -5,9 +5,13 @@
     overflow-y: scroll;
 }
 
-.artistes-list {
+.artistes-list, .track-list {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start
+}
+
+.titre-categorie {
+    margin: 0 30px;
 }

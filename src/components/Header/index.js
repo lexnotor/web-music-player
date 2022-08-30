@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { refleshToken, setArtiste } from '../../redux';
+import { refleshToken, setAlbum, setArtiste, setTrack } from '../../redux';
 import './style.css'
 
 const Header = () => {
@@ -27,10 +27,12 @@ const Header = () => {
                 'Authorization': `${token.token_type} ${token.access_token}`,
             }
         }
-        const param = `?q=${encodeURI(searchText)}&type=artist,track&limit=5`;
+        const param = `?q=${encodeURI(searchText)}&type=artist,track,album&limit=2`;
         dispatch(dispatcher => fetch(baseURI + param, options)
                 .then(response => response.json())
-                .then(data => dispatcher(setArtiste(data.artists.items)) && console.log(data.tracks))
+                .then(data => {dispatcher(setArtiste(data.artists.items)); return data})
+                .then(data => {dispatcher(setTrack(data.tracks.items)); return data})
+                .then(data => {dispatcher(setAlbum(data.albums.items)); return data})
         )
     }
 
