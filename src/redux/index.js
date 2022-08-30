@@ -1,45 +1,12 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { Buffer } from "buffer";
+import { artiste_templates } from "../components/Artiste/constante";
+import { track_template } from "../components/Track/constante";
 
 /* Les slices*/
 const artiste_slice = createSlice({
     name: 'artistes',
-    initialState: [{
-        "external_urls": {
-            "spotify": "https://open.spotify.com/artist/66CXWjxzNUsdJxJ2JdwvnR"
-        },
-        "followers": {
-            "href": null,
-            "total": 82827464
-        },
-        "genres": [
-            "dance pop",
-            "pop"
-        ],
-        "href": "https://api.spotify.com/v1/artists/66CXWjxzNUsdJxJ2JdwvnR",
-        "id": "66CXWjxzNUsdJxJ2JdwvnR",
-        "images": [
-            {
-                "height": 640,
-                "url": "https://i.scdn.co/image/ab6761610000e5ebcdce7620dc940db079bf4952",
-                "width": 640
-            },
-            {
-                "height": 320,
-                "url": "https://i.scdn.co/image/ab67616100005174cdce7620dc940db079bf4952",
-                "width": 320
-            },
-            {
-                "height": 160,
-                "url": "https://i.scdn.co/image/ab6761610000f178cdce7620dc940db079bf4952",
-                "width": 160
-            }
-        ],
-        "name": "Ariana Grande",
-        "popularity": 87,
-        "type": "artist",
-        "uri": "spotify:artist:66CXWjxzNUsdJxJ2JdwvnR"
-    }],
+    initialState: [artiste_templates],
     reducers: {
         addArtiste: (state, action) => {
             const isFind = state.find( (artiste)=> artiste.id === action.payload.id);
@@ -50,6 +17,26 @@ const artiste_slice = createSlice({
         },
         deleteArtiste: (state, action)=> {
             const index = state.findIndex((artiste) => artiste.id === action.payload.id)
+            if (index > -1) {
+                state.splice(index, 1)
+            }
+        }
+    }
+})
+
+const track_slice = createSlice({
+    name: 'tracks',
+    initialState: [track_template],
+    reducers: {
+        addTrack: (state, action) => {
+            const isFind = state.find((track) => track.id === action.payload.id);
+            if (!isFind) state.push(action.payload)
+        },
+        setTrack: (state, action) => {
+            state.splice(0, state.length, ...action.payload)
+        },
+        deleteTrack: (state, action) => {
+            const index = state.findIndex((track) => track.id === action.payload.id)
             if (index > -1) {
                 state.splice(index, 1)
             }
@@ -75,6 +62,7 @@ const token_slice = createSlice({
 
 /*Les actions_creator*/
 export const { addArtiste, setArtiste, deleteArtiste } = artiste_slice.actions;
+export const { addTrack, setTrack, deleteTrack } = track_slice.actions;
 export const { setToken } = token_slice.actions;
 
 /*token middleware */
@@ -103,6 +91,7 @@ export const refleshToken = dispatch => {
 export const store = configureStore({
     reducer: {
         artistes: artiste_slice.reducer,
+        tracks: track_slice.reducer,
         tokens: token_slice.reducer
     }
 })

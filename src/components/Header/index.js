@@ -27,11 +27,10 @@ const Header = () => {
                 'Authorization': `${token.token_type} ${token.access_token}`,
             }
         }
-        const param = `?q=${encodeURI(searchText)}&type=artist&limit=40`;
-        return (
-            (dispatcher) => fetch(baseURI + param, options)
+        const param = `?q=${encodeURI(searchText)}&type=artist,track&limit=5`;
+        dispatch(dispatcher => fetch(baseURI + param, options)
                 .then(response => response.json())
-                .then(data => dispatcher(setArtiste(data.artists.items)))
+                .then(data => dispatcher(setArtiste(data.artists.items)) && console.log(data.tracks))
         )
     }
 
@@ -51,7 +50,7 @@ const Header = () => {
                     />
                     <button
                         className='btn-search'
-                        onClick={() => dispatch(search())}
+                        onClick={() => search()}
                     >Search</button>
                 </div>
                 <div className='account-container'>
