@@ -74,7 +74,11 @@
     padding: 10px 25px;
     border-bottom: 3px solid transparent;
 }
-.categorie-item:active {
+a.categorie-item {
+    color: white;
+    text-decoration: none;
+}
+a.categorie-item.active {
     color: var(--color-light-blue);
 }
 .categorie-item:hover {

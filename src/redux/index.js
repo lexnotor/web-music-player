@@ -108,6 +108,26 @@ export const refleshToken = dispatch => {
         .catch(error => console.log(error))
 }
 
+/*Search middleware */
+export const search = (text, token) => {
+    if (text.trim() === '') return;
+    const baseURI = 'https://api.spotify.com/v1/search';
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${token.token_type} ${token.access_token}`,
+        }
+    }
+    const param = `?q=${encodeURI(text)}&type=artist,track,album&limit=5`;
+    return (dispatcher => fetch(baseURI + param, options)
+        .then(response => response.json())
+        .then(data => { dispatcher(setArtiste(data.artists.items)); return data })
+        .then(data => { dispatcher(setTrack(data.tracks.items)); return data })
+        .then(data => { dispatcher(setAlbum(data.albums.items)); return data })
+    )
+}
+
 /*Notre redux_store*/
 export const store = configureStore({
     reducer: {
