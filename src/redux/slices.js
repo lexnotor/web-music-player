@@ -11,8 +11,9 @@ export const artiste_slice = createSlice({
     initialState: [artiste_templates],
     reducers: {
         addArtiste: (state, action) => {
-            const isFind = state.find((artiste) => artiste.id === action.payload.id);
-            if (!isFind) state.push(action.payload)
+            action.payload.forEach((elm) => {
+                (!state.find((art) => art.id === elm.id)) && state.push(elm)
+            })
         },
         setArtiste: (state, action) => {
             state.splice(0, state.length, ...action.payload)
@@ -31,8 +32,9 @@ export const track_slice = createSlice({
     initialState: [track_template],
     reducers: {
         addTrack: (state, action) => {
-            const isFind = state.find((track) => track.id === action.payload.id);
-            if (!isFind) state.push(action.payload)
+            action.payload.forEach((elm) => {
+                (!state.find((track) => track.id === elm.id)) && state.push(elm)
+            })
         },
         setTrack: (state, action) => {
             state.splice(0, state.length, ...action.payload)
@@ -45,13 +47,15 @@ export const track_slice = createSlice({
         }
     }
 })
+
 export const album_slice = createSlice({
     name: 'album',
     initialState: [album_template],
     reducers: {
         addAlbum: (state, action) => {
-            const isFind = state.find((album) => album.id === action.payload.id);
-            if (!isFind) state.push(action.payload)
+            action.payload.forEach( (elm) => {
+                (!state.find((album) => album.id === elm.id)) && state.push(elm)
+            })
         },
         setAlbum: (state, action) => {
             state.splice(0, state.length, ...action.payload)
@@ -70,8 +74,9 @@ export const playlist_slice = createSlice({
     initialState: [playlist_template],
     reducers: {
         addPlaylist: (state, action) => {
-            const isFind = state.find((playlist) => playlist.id === action.payload.id);
-            if (!isFind) state.push(action.payload)
+            action.payload.forEach((elm) => {
+                (!state.find((playlist) => playlist.id === elm.id)) && state.push(elm)
+            })
         },
         setPlaylist: (state, action) => {
             state.splice(0, state.length, ...action.payload)
@@ -111,7 +116,8 @@ export const util_slice = createSlice({
     },
     reducers: {
         set_next_link: (state, action) => {
-            state = {...state, ...action.payload}
+            state = {...state, ...action.payload};
+            return state;
         }
     }
 })

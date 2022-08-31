@@ -34,7 +34,7 @@ const Lexify = () => {
                 <Body />
             </div>
         :
-            <div className='lexify-loader'>Tout</div>
+            <div className='lexify-loader'></div>
         }
         </>
     );

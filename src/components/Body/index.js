@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
+import { search } from '../../redux'
 import Album from '../Album'
 import Artiste from '../Artiste'
 import Header from '../Header'
@@ -10,7 +11,14 @@ import './style.css'
 
 const DisplayArtiste = () => {
     const allArtistes = useSelector(state => state.artistes).filter(art => art.images.length);
-    const [transX,setTransX] = useState(0);
+    const [transX, setTransX] = useState(0);
+    const dispatch = useDispatch();
+    const [token, utils] = useSelector(state => [state.tokens, state.utils]);
+    useEffect(() => {
+        if (utils.next_artistes && transX < -240 * (allArtistes.length - 5)) {
+            dispatch(search(utils.next_artistes, token, true));
+        }
+    }, [transX, token, dispatch, utils, allArtistes.length])
     return (
         <>
             <h1 className='titre-categorie'>Artistes</h1>
@@ -28,8 +36,15 @@ const DisplayArtiste = () => {
     )
 }
 const DisplayTracks = () => {
-    const allTracks = useSelector(state => state.tracks).filter(track => track.album.images.length);
+    const allTracks = useSelector(state => state.tracks).filter(track => track.album&&track.album.images.length);
     const [transX, setTransX] = useState(0);
+    const dispatch = useDispatch();
+    const [token, utils] = useSelector(state => [state.tokens, state.utils]);
+    useEffect(() => {
+        if (utils.next_tracks && transX < -240 * (allTracks.length - 5)) {
+            dispatch(search(utils.next_tracks, token, true));
+        }
+    }, [transX, token, dispatch, utils, allTracks.length])
     return (
         <>
             <h1 className='titre-categorie'>Titres</h1>
@@ -48,6 +63,13 @@ const DisplayTracks = () => {
 const DisplayAlbum = () => {
     const allAlbums = useSelector(state => state.albums).filter(album => album.images.length);
     const [transX, setTransX] = useState(0);
+    const dispatch = useDispatch();
+    const [token, utils] = useSelector(state => [state.tokens, state.utils]);
+    useEffect(()=>{
+        if (utils.next_albums && transX < -240 * (allAlbums.length-5)) {
+            dispatch(search(utils.next_albums, token, true));
+        }
+    }, [transX, token, dispatch, utils, allAlbums.length])
     return (
         <>
             <h1 className='titre-categorie'>Albums</h1>
@@ -67,6 +89,13 @@ const DisplayAlbum = () => {
 const DisplayPlaylist = () => {
     const allPlaylists = useSelector(state => state.playlists).filter(playlist => playlist.images.length);
     const [transX, setTransX] = useState(0);
+    const dispatch = useDispatch();
+    const [token, utils] = useSelector(state => [state.tokens, state.utils]);
+    useEffect(() => {
+        if (utils.next_playlist && transX < -240 * (allPlaylists.length - 5)) {
+            dispatch(search(utils.next_playlist, token, true));
+        }
+    }, [transX, token, dispatch, utils, allPlaylists.length])
     return (
         <>
             <h1 className='titre-categorie'>Playlists</h1>
@@ -75,7 +104,7 @@ const DisplayPlaylist = () => {
                 <button className='rigth-arrow' onClick={() => setTransX(transX-100)}>N</button>
                 <div className='playlist-list' style={{ width: 240 * allPlaylists.length + 'px', transform: `translate(${transX}px)` }}>
                     {
-                        allPlaylists.map(album => <Playlist key={album.id} id={album.id} />)
+                        allPlaylists.map(playlist => <Playlist key={playlist.id} id={playlist.id} />)
                     }
                 </div>
             </div>

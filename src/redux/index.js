@@ -44,8 +44,9 @@ export const search = (text, token, adding = false) => {
             'Authorization': `${token.token_type} ${token.access_token}`,
         }
     }
-    const param = `?q=${encodeURI(text)}&type=artist,track,album,playlist&limit=10`;
-    if (!adding)
+    const param = `?q=${encodeURI(text)}&type=artist,track,album,playlist&limit=15`;
+
+    if (!adding){
         return (dispatcher => fetch(baseURI + param, options)
             .then(response => response.json())
             .then(data => { dispatcher(setArtiste(data.artists.items)); return data })
@@ -61,35 +62,33 @@ export const search = (text, token, adding = false) => {
                 }));
                 return data
             })
-            .then(data => { console.log(data);; return data })
+            .then(data => { return data })
         );
-    else
-        return (dispatcher => fetch(text, options)
-            .then(response => response.json())
-            .then(data => {
-                data.artists && dispatcher(addArtiste(data.artists.items));
-                data.artists && dispatcher(set_next_link({next_artistes: data.artists.next}));
-                return data
-            })
-            .then(data => {
-                data.tracks && dispatcher(addTrack(data.tracks.items));
-                data.artists && dispatcher(set_next_link({next_tracks: data.tracks.next}));
-                return data
-            })
-            .then(data => {
-                data.albums && dispatcher(addAlbum(data.albums.items));
-                data.artists && dispatcher(set_next_link({next_albums: data.albums.next}));
-                return data
-            })
-            .then(data => {
-                data.playlists && dispatcher(addPlaylist(data.playlists.items));
-                data.artists && dispatcher(set_next_link({next_playlist: data.playlists.next}));
-                return data
-            })
-            .then(data => {
-                console.log(data); return data
-            })
-        );
+    } else {
+            return (dispatcher => fetch(text, options)
+                .then(response => response.json())
+                .then(data => {
+                    data.artists && dispatcher(addArtiste(data.artists.items));
+                    data.artists && dispatcher(set_next_link({next_artistes: data.artists.next}));
+                    return data
+                })
+                .then(data => {
+                    data.tracks && dispatcher(addTrack(data.tracks.items));
+                    data.tracks && dispatcher(set_next_link({next_tracks: data.tracks.next}));
+                    return data
+                })
+                .then(data => {
+                    data.albums && dispatcher(addAlbum(data.albums.items));
+                    data.albums && dispatcher(set_next_link({next_albums: data.albums.next}));
+                    return data
+                })
+                .then(data => {
+                    data.playlists && dispatcher(addPlaylist(data.playlists.items));
+                    data.playlists && dispatcher(set_next_link({next_playlist: data.playlists.next}));
+                    return data
+                })
+            );
+        }
 }
 
 /*Notre redux_store*/
@@ -99,6 +98,7 @@ export const store = configureStore({
         tracks: slices.track_slice.reducer,
         albums: slices.album_slice.reducer,
         playlists: slices.playlist_slice.reducer,
-        tokens: slices.token_slice.reducer
+        tokens: slices.token_slice.reducer,
+        utils: slices.util_slice.reducer
     }
 })
