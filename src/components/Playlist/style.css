@@ -1,11 +1,11 @@
 :root {
-    --album-width: 180px;
-    --album-height: 250px;
+    --playlist-width: 180px;
+    --playlist-height: 250px;
 }
 
-.album-container {
-    width: var(--album-width);
-    height: var(--album-height);
+.playlist-container {
+    width: var(--art-width);
+    height: var(--art-height);
     font-size: 0.9em;
     font-weight: bold;
     border-radius: 8px;
@@ -15,7 +15,7 @@
     box-shadow: 0 0 9px rgba(45, 43, 57, 0.437);
 }
 
-.album-container img {
+.playlist-container img {
     width: 80%;
     height: 80%;
     margin-top: 10%;
@@ -23,13 +23,13 @@
     border-radius: 50%;
 }
 
-.album-image-container {
+.playlist-image-container {
     width: 100%;
-    height: var(--album-width);
+    height: var(--art-width);
     text-align: center;
     overflow: hidden;
 }
 
-.album-name-container {
+.playlist-name-container {
     margin: 8px 10px;
 }

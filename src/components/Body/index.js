@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Route, Routes } from 'react-router-dom'
+import Album from '../Album'
 import Artiste from '../Artiste'
 import Header from '../Header'
+import Playlist from '../Playlist'
 import Track from '../Track'
-import Album from '../Album'
 import './style.css'
-import { Route, Routes } from 'react-router-dom'
-import { search } from '../../redux'
 
 const DisplayArtiste = () => {
     const allArtistes = useSelector(state => state.artistes).filter(art => art.images.length);
@@ -75,7 +75,7 @@ const DisplayPlaylist = () => {
                 <button className='rigth-arrow' onClick={() => setTransX(transX-100)}>N</button>
                 <div className='playlist-list' style={{ width: 240 * allPlaylists.length + 'px', transform: `translate(${transX}px)` }}>
                     {
-                        allPlaylists.map(album => <playlist key={album.id} id={album.id} />)
+                        allPlaylists.map(album => <Playlist key={album.id} id={album.id} />)
                     }
                 </div>
             </div>
@@ -89,7 +89,7 @@ const DisplayAll = () => {
             <DisplayAlbum />
             <DisplayTracks />
             <DisplayArtiste />
-            {/* <DisplayPlaylist /> */}
+            <DisplayPlaylist />
         </>
     )
 }
@@ -104,7 +104,7 @@ const Body = () => {
                 <Route path='/albums' element={<DisplayAlbum />} />
                 <Route path='/tracks' element={<DisplayTracks />} />
                 <Route path='/artists' element={<DisplayArtiste />} />
-                {/* <Route path='/playlists' element={<DisplayPlaylist />} /> */}
+                <Route path='/playlists' element={<DisplayPlaylist />} />
 
                 <Route path='/' element={<DisplayAll />} />
             </Routes>

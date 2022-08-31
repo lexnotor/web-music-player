@@ -100,3 +100,18 @@ export const token_slice = createSlice({
         }
     }
 })
+
+export const util_slice = createSlice({
+    name: 'utils',
+    initialState: {
+        next_artistes: '',
+        next_tracks: '',
+        next_albums: '',
+        next_playlist: ''
+    },
+    reducers: {
+        set_next_link: (state, action) => {
+            state = {...state, ...action.payload}
+        }
+    }
+})

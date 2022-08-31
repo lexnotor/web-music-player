@@ -8,6 +8,7 @@ export const { addArtiste, setArtiste, deleteArtiste } = slices.artiste_slice.ac
 export const { addTrack, setTrack, deleteTrack } = slices.track_slice.actions;
 export const { addAlbum, setAlbum, deleteAlbum } = slices.album_slice.actions;
 export const { addPlaylist, setPlaylist, deletePlaylist } = slices.playlist_slice.actions;
+export const { set_next_link } = slices.util_slice.actions;
 export const { setToken } = slices.token_slice.actions;
 
 /*token middleware */
@@ -33,7 +34,7 @@ export const refleshToken = dispatch => {
 }
 
 /*Search middleware */
-export const search = (text, token) => {
+export const search = (text, token, adding = false) => {
     if (text.trim() === '') return;
     const baseURI = 'https://api.spotify.com/v1/search';
     const options = {
@@ -43,15 +44,52 @@ export const search = (text, token) => {
             'Authorization': `${token.token_type} ${token.access_token}`,
         }
     }
-    const param = `?q=${encodeURI(text)}&type=artist,track,album,playlist&limit=1`;
-    return (dispatcher => fetch(baseURI + param, options)
-        .then(response => response.json())
-        .then(data => { dispatcher(setArtiste(data.artists.items)); return data })
-        .then(data => { dispatcher(setTrack(data.tracks.items)); return data })
-        .then(data => { dispatcher(setAlbum(data.albums.items)); return data })
-        .then(data => { dispatcher(setPlaylist(data.playlists.items)); return data })
-        .then(data => { console.log(data);; return data })
-    )
+    const param = `?q=${encodeURI(text)}&type=artist,track,album,playlist&limit=10`;
+    if (!adding)
+        return (dispatcher => fetch(baseURI + param, options)
+            .then(response => response.json())
+            .then(data => { dispatcher(setArtiste(data.artists.items)); return data })
+            .then(data => { dispatcher(setTrack(data.tracks.items)); return data })
+            .then(data => { dispatcher(setAlbum(data.albums.items)); return data })
+            .then(data => { dispatcher(setPlaylist(data.playlists.items)); return data })
+            .then(data => {
+                dispatcher(set_next_link({
+                    next_artistes: data.artists.next,
+                    next_tracks: data.tracks.next,
+                    next_albums: data.albums.next,
+                    next_playlist: data.playlists.next
+                }));
+                return data
+            })
+            .then(data => { console.log(data);; return data })
+        );
+    else
+        return (dispatcher => fetch(text, options)
+            .then(response => response.json())
+            .then(data => {
+                data.artists && dispatcher(addArtiste(data.artists.items));
+                data.artists && dispatcher(set_next_link({next_artistes: data.artists.next}));
+                return data
+            })
+            .then(data => {
+                data.tracks && dispatcher(addTrack(data.tracks.items));
+                data.artists && dispatcher(set_next_link({next_tracks: data.tracks.next}));
+                return data
+            })
+            .then(data => {
+                data.albums && dispatcher(addAlbum(data.albums.items));
+                data.artists && dispatcher(set_next_link({next_albums: data.albums.next}));
+                return data
+            })
+            .then(data => {
+                data.playlists && dispatcher(addPlaylist(data.playlists.items));
+                data.artists && dispatcher(set_next_link({next_playlist: data.playlists.next}));
+                return data
+            })
+            .then(data => {
+                console.log(data); return data
+            })
+        );
 }
 
 /*Notre redux_store*/
@@ -60,7 +98,7 @@ export const store = configureStore({
         artistes: slices.artiste_slice.reducer,
         tracks: slices.track_slice.reducer,
         albums: slices.album_slice.reducer,
-        playlist: slices.playlist_slice.reducer,
+        playlists: slices.playlist_slice.reducer,
         tokens: slices.token_slice.reducer
     }
 })

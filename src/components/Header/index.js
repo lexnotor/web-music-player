@@ -55,7 +55,7 @@ const Header = () => {
                 <NavLink to='/artists' className='categorie-item'>
                     <span>Artistes</span>
                 </NavLink>
-                <NavLink to='/' className='categorie-item'>
+                <NavLink to='/playlists' className='categorie-item'>
                     <span>Playlists</span>
                 </NavLink>
             </div>

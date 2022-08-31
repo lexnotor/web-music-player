@@ -5,7 +5,7 @@
     overflow-y: scroll;
 }
 
-.artistes-list, .track-list, .album-list {
+.artistes-list, .track-list, .album-list, .playlist-list {
     display: flex;
     flex-direction: row;
     flex-wrap: no-wrap;
