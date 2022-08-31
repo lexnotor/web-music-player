@@ -43,7 +43,7 @@ const Header = () => {
 
             </div>
             <div className='hearder-categories'>
-                <NavLink to='/' className='categorie-item active'>
+                <NavLink to='/' className='categorie-item' >
                     <span>All</span>
                 </NavLink>
                 <NavLink to='/albums' className='categorie-item'>

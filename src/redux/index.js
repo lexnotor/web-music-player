@@ -1,90 +1,14 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { Buffer } from "buffer";
-import { album_template } from "../components/Album/constante";
-import { artiste_templates } from "../components/Artiste/constante";
-import { track_template } from "../components/Track/constante";
+import * as slices from './slices';
 
-/* Les slices*/
-const artiste_slice = createSlice({
-    name: 'artistes',
-    initialState: [artiste_templates],
-    reducers: {
-        addArtiste: (state, action) => {
-            const isFind = state.find( (artiste)=> artiste.id === action.payload.id);
-            if(!isFind) state.push(action.payload)
-        },
-        setArtiste: (state, action) => {
-            state.splice(0, state.length, ...action.payload)
-        },
-        deleteArtiste: (state, action)=> {
-            const index = state.findIndex((artiste) => artiste.id === action.payload.id)
-            if (index > -1) {
-                state.splice(index, 1)
-            }
-        }
-    }
-})
-
-const track_slice = createSlice({
-    name: 'tracks',
-    initialState: [track_template],
-    reducers: {
-        addTrack: (state, action) => {
-            const isFind = state.find((track) => track.id === action.payload.id);
-            if (!isFind) state.push(action.payload)
-        },
-        setTrack: (state, action) => {
-            state.splice(0, state.length, ...action.payload)
-        },
-        deleteTrack: (state, action) => {
-            const index = state.findIndex((track) => track.id === action.payload.id)
-            if (index > -1) {
-                state.splice(index, 1)
-            }
-        }
-    }
-})
-const album_slice = createSlice({
-    name: 'album',
-    initialState: [album_template],
-    reducers: {
-        addAlbum: (state, action) => {
-            const isFind = state.find((album) => album.id === action.payload.id);
-            if (!isFind) state.push(action.payload)
-        },
-        setAlbum: (state, action) => {
-            state.splice(0, state.length, ...action.payload)
-        },
-        deleteAlbum: (state, action) => {
-            const index = state.findIndex((album) => album.id === action.payload.id)
-            if (index > -1) {
-                state.splice(index, 1)
-            }
-        }
-    }
-})
-
-const token_slice = createSlice({
-    name: 'tokens',
-    initialState: {
-        access_token: "",
-        token_type: "Bearer",
-        expire_at: 0
-    },
-    reducers: {
-        setToken: (state, action) => {
-            state.access_token = action.payload.access_token;
-            state.token_type = action.payload.token_type;
-            state.expire_at = Date.now() + (action.payload.expires_in * 1000);
-        }
-    }
-})
 
 /*Les actions_creator*/
-export const { addArtiste, setArtiste, deleteArtiste } = artiste_slice.actions;
-export const { addTrack, setTrack, deleteTrack } = track_slice.actions;
-export const { addAlbum, setAlbum, deleteAlbum } = album_slice.actions;
-export const { setToken } = token_slice.actions;
+export const { addArtiste, setArtiste, deleteArtiste } = slices.artiste_slice.actions;
+export const { addTrack, setTrack, deleteTrack } = slices.track_slice.actions;
+export const { addAlbum, setAlbum, deleteAlbum } = slices.album_slice.actions;
+export const { addPlaylist, setPlaylist, deletePlaylist } = slices.playlist_slice.actions;
+export const { setToken } = slices.token_slice.actions;
 
 /*token middleware */
 export const refleshToken = dispatch => {
@@ -119,21 +43,24 @@ export const search = (text, token) => {
             'Authorization': `${token.token_type} ${token.access_token}`,
         }
     }
-    const param = `?q=${encodeURI(text)}&type=artist,track,album&limit=5`;
+    const param = `?q=${encodeURI(text)}&type=artist,track,album,playlist&limit=1`;
     return (dispatcher => fetch(baseURI + param, options)
         .then(response => response.json())
         .then(data => { dispatcher(setArtiste(data.artists.items)); return data })
         .then(data => { dispatcher(setTrack(data.tracks.items)); return data })
         .then(data => { dispatcher(setAlbum(data.albums.items)); return data })
+        .then(data => { dispatcher(setPlaylist(data.playlists.items)); return data })
+        .then(data => { console.log(data);; return data })
     )
 }
 
 /*Notre redux_store*/
 export const store = configureStore({
     reducer: {
-        artistes: artiste_slice.reducer,
-        tracks: track_slice.reducer,
-        albums: album_slice.reducer,
-        tokens: token_slice.reducer
+        artistes: slices.artiste_slice.reducer,
+        tracks: slices.track_slice.reducer,
+        albums: slices.album_slice.reducer,
+        playlist: slices.playlist_slice.reducer,
+        tokens: slices.token_slice.reducer
     }
 })

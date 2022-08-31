@@ -8,10 +8,27 @@
 .artistes-list, .track-list, .album-list {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start
+    flex-wrap: no-wrap;
+    justify-content: flex-start;
+    transition: transform 0.5s;
 }
 
 .titre-categorie {
     margin: 0 30px;
+}
+.caroussel {
+    width: 80vw;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.left-arrow, .rigth-arrow {
+    opacity: 0.5;
+    position: absolute;
+    font-size: 3em;
+    top: 120px;
+    z-index: 99;
+}
+.rigth-arrow {
+    right: 0px;
 }
