@@ -12,6 +12,7 @@
     background-color: rgba(87, 85, 85, 0.283);
     margin: 30px;
     box-shadow: 0 0 9px rgba(45, 43, 57, 0.437);
+    cursor: pointer;
 }
 
 .artiste-container img {

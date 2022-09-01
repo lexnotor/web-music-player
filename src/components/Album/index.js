@@ -1,14 +1,16 @@
 import React from 'react'
 import './style.css'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { set_embed } from '../../redux';
 
 const Album = ({ id }) => {
 
     const data = useSelector(state => state.albums).find(album => album.id === id)
-    const { href, images, name } = data;
+    const dispatch = useDispatch();
+    const { images, name } = data;
 
     return (
-        <div className='album-container'>
+        <div className='album-container' onClick={() => dispatch(set_embed({id:id, type:'album'}))}>
             <div className='album-image-container'>
                 <img src={images.length ? images[1].url : ''} alt="" />
             </div>

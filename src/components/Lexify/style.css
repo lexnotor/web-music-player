@@ -22,3 +22,12 @@
         transform: rotate(360deg);
     }
 }
+
+.pc-music-pop-up {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    z-index: 100;
+    text-align: center;
+    color: rgb(238, 111, 111);
+}

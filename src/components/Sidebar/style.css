@@ -11,6 +11,17 @@
     line-height: 2.5em;
 }
 
+.sidebar-container div > * {
+    cursor: pointer;
+    display: block;
+    transition: color 0.5s ease-in-out;
+}
+
+.sidebar-container div > *:hover {
+    color: var(--color-blue) ;
+}
+
+
 @media screen and (min-width: 900px) {
     .sidebar-container {
         min-height: 100vh;

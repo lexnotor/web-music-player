@@ -112,12 +112,21 @@ export const util_slice = createSlice({
         next_artistes: '',
         next_tracks: '',
         next_albums: '',
-        next_playlist: ''
+        next_playlist: '',
+        embed: [false, '']
     },
     reducers: {
         set_next_link: (state, action) => {
             state = {...state, ...action.payload};
             return state;
+        },
+        set_embed: (state, action) => {
+            if(action.payload.length === 0)
+                state.embed = [false, '', ''];
+            else {
+                state.embed = [true, action.payload.type, action.payload.id];
+            }
+                
         }
     }
 })

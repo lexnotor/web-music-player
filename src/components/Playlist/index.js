@@ -1,14 +1,16 @@
 import React from 'react'
 import './style.css'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { set_embed } from '../../redux';
 
 const Playlist = ({ id }) => {
 
-    const data = useSelector(state => state.playlists).find(playlist => playlist.id === id)
-    const { href, images, name } = data;
+    const data = useSelector(state => state.playlists).find(playlist => playlist.id === id);
+    const dispatch = useDispatch();
+    const { images, name } = data;
 
     return (
-        <div className='playlist-container'>
+        <div className='playlist-container' onClick={() => dispatch(set_embed({id:id, type:'playlist'}))}>
             <div className='playlist-image-container'>
                 <img src={images.length ? images[0].url : ''} alt="" />
             </div>
