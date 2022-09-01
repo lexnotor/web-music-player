@@ -15,7 +15,6 @@ const Track = ({ id }) => {
         id: album.id ? album.id : id,
         type: album.id ? 'album' : 'track'
     }
-    console.log(album.id, to_embed)
     return (
         <div className='track-container' onClick={() => dispatch(set_embed(to_embed))}>
             <div className='track-image-container'>

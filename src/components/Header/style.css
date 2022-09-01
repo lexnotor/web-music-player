@@ -59,6 +59,24 @@
     background-color: #579fd6;
 }
 
+.header-categories_selector {
+    display: none;
+    margin: 0px 20px;
+    padding: 10px 25px;
+    background-color: white;
+    color: var(--color-accent-blue);
+    font-size: 1.1em;
+    font-weight: bold;
+    width: max-content;
+    border-radius: 5px;
+}
+
+
+.header-categories_selector * {
+    vertical-align: middle;
+}
+
+
 /*Categories*/
 .hearder-categories {
     display: inline-flex;
@@ -87,4 +105,29 @@ a.categorie-item.active {
 
 .categorie-item.active {
     color: var(--color-blue);
+}
+
+@media screen and (max-width: 799px) {
+    .search-container {
+        padding: 20px;
+        gap: 10px;
+    }
+    .account-container {
+        display: none;
+    }
+    .header-categories_selector {
+        display: block;
+    }
+    .hearder-categories {
+        display: none;
+    }
+    .hearder-categories.show-cat {
+        position: absolute;
+        display: inline-flex;
+        flex-direction: column;
+        z-index: 100;
+        width: 80vw;
+        border-radius: 3px;
+        box-shadow: 0 0 3px rgb(58, 58, 58);
+    }
 }

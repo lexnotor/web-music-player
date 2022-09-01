@@ -1,14 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { FiChevronDown, FiSearch } from 'react-icons/fi'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { refleshToken, search} from '../../redux';
 import './style.css'
 
 const Header = () => {
 
     const [searchText, setSearchText] = useState('');
+    const [select, setSelect] = useState('All');
+
     const token = useSelector(state => state.tokens);
     const dispatch = useDispatch();
+
+    const catRef = useRef();
+
+    const location = useLocation();
 
     const changeText =  (e) => {
         setSearchText(e.target.value);
@@ -17,7 +24,12 @@ const Header = () => {
         }
             
     }
-
+    useEffect( ()=> {
+        const path = /(\w+)/.exec(location.pathname);
+        setSelect(path ? path[0].toUpperCase() : 'ALL');
+        catRef.current.classList.toggle('show-cat', false);
+    }, [location]);
+    
     return (
         <div className='header-container'>
 
@@ -35,15 +47,19 @@ const Header = () => {
                     <button
                         className='btn-search'
                         onClick={() => dispatch(search(searchText, token))}
-                    >Search</button>
+                    ><FiSearch /> </button>
                 </div>
                 <div className='account-container'>
                     <button className='btn-connexion'>Se connecter</button>
                 </div>
 
             </div>
-            <div className='hearder-categories'>
-                <NavLink to='/' className='categorie-item' >
+            <div className='header-categories_selector' onClick={() => catRef.current.classList.toggle('show-cat', true)}>
+                <span>{select}</span>
+                <span> <FiChevronDown /> </span>
+            </div>
+            <div ref={catRef} className='hearder-categories show-cat'>
+                <NavLink to='/' className='categorie-item'>
                     <span>All</span>
                 </NavLink>
                 <NavLink to='/albums' className='categorie-item'>
