@@ -1,10 +1,19 @@
-import React from 'react'
-import './style.css'
+import React from 'react';
+import { FiArrowLeft } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
+import { set_show_sidebar } from '../../redux'
+import './style.css';
 
 const Sidebar = () => {
 
+    const [showSide] = useSelector(state =>  [state.utils.show_sidebar]);
+    const dispatch = useDispatch()
+
     return (
-        <div className='sidebar-container'>
+        <div className={showSide ?'sidebar-container show-side' : 'sidebar-container'}>
+            <div className='sidebar-close'>
+                <FiArrowLeft onClick={() => dispatch(set_show_sidebar(false))} />
+            </div>
             <div>
                 <span>Accueil</span>
             </div>

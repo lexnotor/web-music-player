@@ -113,7 +113,8 @@ export const util_slice = createSlice({
         next_tracks: '',
         next_albums: '',
         next_playlist: '',
-        embed: [false, '']
+        embed: [false, ''],
+        show_sidebar: false
     },
     reducers: {
         set_next_link: (state, action) => {
@@ -125,8 +126,10 @@ export const util_slice = createSlice({
                 state.embed = [false, '', ''];
             else {
                 state.embed = [true, action.payload.type, action.payload.id];
-            }
-                
+            } 
+        },
+        set_show_sidebar: (state, action) => {
+            state.show_sidebar = action.payload;
         }
     }
 })

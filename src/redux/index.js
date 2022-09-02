@@ -8,7 +8,7 @@ export const { addArtiste, setArtiste, deleteArtiste } = slices.artiste_slice.ac
 export const { addTrack, setTrack, deleteTrack } = slices.track_slice.actions;
 export const { addAlbum, setAlbum, deleteAlbum } = slices.album_slice.actions;
 export const { addPlaylist, setPlaylist, deletePlaylist } = slices.playlist_slice.actions;
-export const { set_next_link, set_embed } = slices.util_slice.actions;
+export const { set_next_link, set_embed, set_show_sidebar } = slices.util_slice.actions;
 export const { setToken } = slices.token_slice.actions;
 
 /*token middleware */
@@ -75,7 +75,6 @@ export const search = (text, token, adding = false) => {
                 .then(data => {
                     data.tracks && dispatcher(addTrack(data.tracks.items));
                     data.tracks && dispatcher(set_next_link({next_tracks: data.tracks.next}));
-                    console.log(data.tracks)
                     return data
                 })
                 .then(data => {

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { FiChevronDown, FiSearch } from 'react-icons/fi'
+import { FiChevronDown, FiSearch, FiMenu } from 'react-icons/fi'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
-import { refleshToken, search} from '../../redux';
+import { refleshToken, search, set_show_sidebar } from '../../redux';
 import './style.css'
 
 const Header = () => {
@@ -10,7 +10,7 @@ const Header = () => {
     const [searchText, setSearchText] = useState('');
     const [select, setSelect] = useState('All');
 
-    const token = useSelector(state => state.tokens);
+    const [token] = useSelector(state => [state.tokens]);
     const dispatch = useDispatch();
 
     const catRef = useRef();
@@ -32,9 +32,10 @@ const Header = () => {
     
     return (
         <div className='header-container'>
-
+            <div className='bar-humburger' onClick={() => dispatch(set_show_sidebar(true))}>
+                <FiMenu />
+            </div>
             <div className='header-top-bar'>
-
                 <div className='search-container'>
                     <input
                         type="text"

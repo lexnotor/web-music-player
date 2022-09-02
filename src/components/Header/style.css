@@ -5,6 +5,11 @@
     justify-content: space-between;
 }
 
+/* La bar pour humburger*/
+.bar-humburger {
+    display: none;
+}
+
 /*Search*/
 .search-container {
     padding: 20px 30px;
@@ -62,7 +67,7 @@
 .header-categories_selector {
     display: none;
     margin: 0px 20px;
-    padding: 10px 25px;
+    padding: 8px 15px;
     background-color: white;
     color: var(--color-accent-blue);
     font-size: 1.1em;
@@ -108,8 +113,17 @@ a.categorie-item.active {
 }
 
 @media screen and (max-width: 799px) {
+    /* La bar pour humburger*/
+    .bar-humburger {
+        font-size: 2em;
+        font-weight: bold;
+        margin: 10px 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
     .search-container {
-        padding: 20px;
+        padding: 10px 20px;
         gap: 10px;
     }
     .account-container {
