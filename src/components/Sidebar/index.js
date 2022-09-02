@@ -23,6 +23,9 @@ const Sidebar = () => {
             <div>
                 <span>Music lické</span>
             </div>
+            <div className='sidebar-account-container'>
+                <button className='btn-connexion'>Se connecter</button>
+            </div>
         </div>
     )
 }

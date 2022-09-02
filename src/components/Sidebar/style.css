@@ -13,13 +13,13 @@
 .sidebar-close {
     display: none;
 }
-.sidebar-container div > * {
+.sidebar-container div > span {
     cursor: pointer;
     display: block;
     transition: color 0.5s ease-in-out;
 }
 
-.sidebar-container div > *:hover {
+.sidebar-container div > span:hover {
     color: var(--color-blue) ;
 }
 
@@ -50,6 +50,11 @@
     .sidebar-close {
         padding-left: 90%;
         display: block;
+    }
+    .sidebar-account-container {
+        position: absolute;
+        bottom: 20px;
+        left: 10vw;
     }
 }
 
