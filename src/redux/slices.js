@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { album_template } from "../components/Album/constante";
-import { artiste_templates } from "../components/Artiste/constante";
-import { playlist_template } from "../components/Playlist/constante";
-import { track_template } from "../components/Track/constante";
+import { album_template } from "../components/album/constante";
+import { artiste_templates } from "../components/artiste/constante";
+import { playlist_template } from "../components/playlist/constante";
+import { track_template } from "../components/track/constante";
 
 
 /* Les slices*/
@@ -102,6 +102,25 @@ export const token_slice = createSlice({
             state.access_token = action.payload.access_token;
             state.token_type = action.payload.token_type;
             state.expire_at = Date.now() + (action.payload.expires_in * 1000);
+        }
+    }
+})
+
+export const google_slice = createSlice({
+    name: 'googleAuth',
+    initialState: {
+        displayName: '',
+        email: '',
+        refreshToken: '',
+        photoURL: '',
+        token: ''
+    },
+    reducers: {
+        set_user_data: (state, action) => {
+            return {...state, ...action.payload }
+        },
+        delete_user_data: (state, action) => {
+            for(const key in state) state[key] ='';
         }
     }
 })

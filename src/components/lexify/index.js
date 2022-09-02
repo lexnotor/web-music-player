@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { FaWindowClose } from 'react-icons/fa';
 import './style.css'
-import Body from '../Body';
-import Sidebar from '../Sidebar';
+import Body from '../body';
+import Sidebar from '../sidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { refleshToken, search, set_embed } from '../../redux';
 
