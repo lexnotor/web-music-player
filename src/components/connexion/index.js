@@ -35,29 +35,27 @@ const Connexion = () => {
 
     useEffect(() => {
 
-        firebase.auth.onAuthStateChanged(rt => {
-            fireAuth.getRedirectResult(firebase.auth)
-                .then((result) => {
-                    if (!result) return;
-                    // Extraction du Google Token pour les APIs
-                    const credential = fireAuth.GoogleAuthProvider.credentialFromResult(result);
-                    const token = credential.accessToken;
+        fireAuth.getRedirectResult(firebase.auth)
+            .then((result) => {
+                if (!result) return;
+                // Extraction du Google Token pour les APIs
+                const credential = fireAuth.GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
 
-                    const { displayName, email, refreshToken, photoURL } = result.user;
-                    dispatch(set_user_data(
-                        {
-                            provider: 'Google',
-                            displayName,
-                            email,
-                            refreshToken,
-                            photoURL,
-                            token,
-                        })
-                    );
-                }).catch(() => {
-                    dispatch(delete_user_data());
-                });
-        })
+                const { displayName, email, refreshToken, photoURL } = result.user;
+                dispatch(set_user_data(
+                    {
+                        provider: 'Google',
+                        displayName,
+                        email,
+                        refreshToken,
+                        photoURL,
+                        token,
+                    })
+                );
+            }).catch(() => {
+                dispatch(delete_user_data());
+            });
     }, [dispatch, firebase])
 
     const connectPopUp = 
