@@ -77,7 +77,7 @@ const Connexion = () => {
             }
             <img src={spotifyLogo} alt="" className='provider-logo' />
             <button
-                onClick={() => firebase.signin()}
+                onClick={() => firebase.signout()}
                 className='btn-spotify'
             >
                 Se connecter
