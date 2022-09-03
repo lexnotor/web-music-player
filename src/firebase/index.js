@@ -2,7 +2,7 @@ import React from "react";
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, inMemoryPersistence, signInWithRedirect } from "firebase/auth";
 
 // Your web app's Firebase configuration
 
@@ -19,6 +19,7 @@ class Firebase {
     constructor() {
         this.Authapp = initializeApp(firebaseConfig);
         this.auth = getAuth(this.Authapp);
+        this.auth.setPersistence(inMemoryPersistence);
         this.provider = new GoogleAuthProvider();
     }
     signout = () => {
