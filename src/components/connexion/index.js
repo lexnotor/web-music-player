@@ -20,7 +20,8 @@ const Connexion = () => {
 
     useEffect(() => {
         // Obtetntion de l'utilisateur
-        setTimeout(()=>{fireAuth.getRedirectResult(firebase.auth)
+            console.log('Begin Timeout')
+            fireAuth.getRedirectResult(firebase.auth)
             .then((result) => {
                 if (!result) return;
                 // Extraction du Google Token pour les APIs
@@ -41,6 +42,7 @@ const Connexion = () => {
             }).catch(() => {
                 dispatch(delete_user_data());
             });
+        setTimeout(()=>{
         console.log(firebase.auth);
         firebase.auth.onAuthStateChanged((rt) => {
             console.log(rt);
@@ -57,7 +59,8 @@ const Connexion = () => {
                     })
                 );
             } else setUser(null)
-        })}, 2000)
+        })
+    }, 3000)
     }, [dispatch, firebase])
 
     const connectPopUp =
