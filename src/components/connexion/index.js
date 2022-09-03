@@ -13,33 +13,16 @@ const Connexion = () => {
     const dispatch = useDispatch();
 
     const firebase = useContext(GoogleAuthContext);
-    useEffect(() => {
-
-    }, [firebase, dispatch])
 
 
     useEffect(() => {
         // Obtetntion de l'utilisateur
-        console.log(firebase.auth);
-        firebase.auth.onAuthStateChanged((rt) => {
-            console.log(rt);
-            if (rt?.email) {
-                setUser(rt);
-                const { displayName, email, refreshToken, photoURL } = rt;
-                dispatch(set_user_data(
-                    {
-                        provider: 'Google',
-                        displayName,
-                        email,
-                        refreshToken,
-                        photoURL,
-                    })
-                );
-            } else setUser(null)
-        })
-        setTimeout(()=>{
-            console.log('Begin Timeout')
-            fireAuth.getRedirectResult(firebase.auth)
+        firebase.auth.onAuthStateChanged((credential) => {
+            if (credential?.email) setUser(credential);
+            else setUser(null);
+        });
+        
+        fireAuth.getRedirectResult(firebase.auth)
             .then((result) => {
                 if (!result) return;
                 // Extraction du Google Token pour les APIs
@@ -60,7 +43,6 @@ const Connexion = () => {
             }).catch(() => {
                 dispatch(delete_user_data());
             });
-    }, 3000)
     }, [dispatch, firebase])
 
     const connectPopUp =
@@ -68,9 +50,9 @@ const Connexion = () => {
             <img src={googleLogo} alt="" className='provider-logo' />
             <button
                 onClick={() => firebase.signin()}
-            >
-                Se connecter
-            </button> <br />
+            >Se connecter
+            </button>
+
             {
                 (user?.email) &&
                 <div className='log-as'> Ou continuer en tant que <br />
@@ -80,13 +62,13 @@ const Connexion = () => {
                     >{user.email} </button>
                 </div>
             }
+
             <img src={spotifyLogo} alt="" className='provider-logo' />
             <button
                 onClick={() => firebase.signout()}
                 className='btn-spotify'
-            >
-                Se connecter
-            </button> <br />
+            >Se connecter
+            </button>
         </div>
 
     return (
