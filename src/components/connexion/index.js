@@ -20,6 +20,24 @@ const Connexion = () => {
 
     useEffect(() => {
         // Obtetntion de l'utilisateur
+        console.log(firebase.auth);
+        firebase.auth.onAuthStateChanged((rt) => {
+            console.log(rt);
+            if (rt?.email) {
+                setUser(rt);
+                const { displayName, email, refreshToken, photoURL } = rt;
+                dispatch(set_user_data(
+                    {
+                        provider: 'Google',
+                        displayName,
+                        email,
+                        refreshToken,
+                        photoURL,
+                    })
+                );
+            } else setUser(null)
+        })
+        setTimeout(()=>{
             console.log('Begin Timeout')
             fireAuth.getRedirectResult(firebase.auth)
             .then((result) => {
@@ -42,24 +60,6 @@ const Connexion = () => {
             }).catch(() => {
                 dispatch(delete_user_data());
             });
-        setTimeout(()=>{
-        console.log(firebase.auth);
-        firebase.auth.onAuthStateChanged((rt) => {
-            console.log(rt);
-            if (rt?.email) {
-                setUser(rt);
-                const { displayName, email, refreshToken, photoURL } = rt;
-                dispatch(set_user_data(
-                    {
-                        provider: 'Google',
-                        displayName,
-                        email,
-                        refreshToken,
-                        photoURL,
-                    })
-                );
-            } else setUser(null)
-        })
     }, 3000)
     }, [dispatch, firebase])
 
