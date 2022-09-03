@@ -14,27 +14,12 @@ const Connexion = () => {
 
     const firebase = useContext(GoogleAuthContext);
     useEffect(() => {
-        firebase.auth.onAuthStateChanged((rt) => {
-            console.log(rt);
-            if (rt?.email) {
-                setUser(rt);
-                const { displayName, email, refreshToken, photoURL } = rt;
-                dispatch(set_user_data(
-                    {
-                        provider: 'Google',
-                        displayName,
-                        email,
-                        refreshToken,
-                        photoURL,
-                    })
-                );
-            } else setUser(null)
-        })
+
     }, [firebase, dispatch])
 
 
     useEffect(() => {
-
+        // Obtetntion de l'utilisateur
         fireAuth.getRedirectResult(firebase.auth)
             .then((result) => {
                 if (!result) return;
@@ -56,9 +41,26 @@ const Connexion = () => {
             }).catch(() => {
                 dispatch(delete_user_data());
             });
+        console.log(firebase.auth);
+        firebase.auth.onAuthStateChanged((rt) => {
+            console.log(rt);
+            if (rt?.email) {
+                setUser(rt);
+                const { displayName, email, refreshToken, photoURL } = rt;
+                dispatch(set_user_data(
+                    {
+                        provider: 'Google',
+                        displayName,
+                        email,
+                        refreshToken,
+                        photoURL,
+                    })
+                );
+            } else setUser(null)
+        })
     }, [dispatch, firebase])
 
-    const connectPopUp = 
+    const connectPopUp =
         <div className='connect-popup'>
             <img src={googleLogo} alt="" className='provider-logo' />
             <button
@@ -69,7 +71,7 @@ const Connexion = () => {
             {
                 (user?.email) &&
                 <div className='log-as'> Ou continuer en tant que <br />
-                    <img src={user.photoURL} alt="" className='photo-profil'/><br />
+                    <img src={user.photoURL} alt="" className='photo-profil' /><br />
                     <button
                         onClick={() => firebase.continuAs(user.email)}
                     >{user.email} </button>
@@ -88,7 +90,7 @@ const Connexion = () => {
         <>
             {connectPopUp}
         </>
-        
+
     )
 }
 
