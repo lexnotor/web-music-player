@@ -106,9 +106,10 @@ export const token_slice = createSlice({
     }
 })
 
-export const google_slice = createSlice({
-    name: 'googleAuth',
+export const google_spotify_slice = createSlice({
+    name: 'googleSpotifyAuth',
     initialState: {
+        provider: '',
         displayName: '',
         email: '',
         refreshToken: '',
@@ -119,8 +120,8 @@ export const google_slice = createSlice({
         set_user_data: (state, action) => {
             return {...state, ...action.payload }
         },
-        delete_user_data: (state, action) => {
-            for(const key in state) state[key] ='';
+        delete_user_data: (state) => {
+            for(const key in state) state[key] = '';
         }
     }
 })

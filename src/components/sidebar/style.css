@@ -29,6 +29,9 @@
         min-height: 100vh;
         box-shadow: 0px 0px 4px black;
     }
+    .sidebar-container .account-container {
+        display: none;
+    }
 }
 
 
@@ -55,6 +58,10 @@
         position: absolute;
         bottom: 20px;
         left: 10vw;
+    }
+    .sidebar-container .account-container {
+        font-size: 0.8em;
+        display: block;
     }
 }
 

@@ -1,0 +1,54 @@
+
+.connect-popup {
+    box-sizing: border-box;
+    margin: 10vh auto;
+    padding: 30px 10px;
+    width: 360px;
+    min-height: 500px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 12px;
+    color: rgb(48, 48, 48);
+}
+
+.connect-popup button{
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: rgb(99, 153, 246);
+    color: white;
+    transition: all 0.5s;
+}
+.connect-popup .btn-spotify {
+    background-color: #10BC4C;
+}
+.connect-popup button:hover {
+    background-color: white;
+    color: rgb(99, 153, 246);
+    box-shadow: 0 0 0px rgb(99, 153, 246);
+    border: 1px solid rgb(99, 153, 246);
+}
+.connect-popup .btn-spotify:hover {
+    color: #10BC4C;
+    box-shadow: 0 0 0px #10BC4C;;
+    border: 1px solid #10BC4C;;
+}
+
+.connect-popup .photo-profil {
+    width: 50px;
+    border-radius: 50%;
+    margin-top: 10px ;
+}
+.connect-popup .provider-logo {
+    width: 80px;
+    display: block;
+    margin: auto;
+}
+
+.connect-popup .log-as {
+    padding-top: 10px;
+}

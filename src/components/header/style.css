@@ -126,7 +126,7 @@ a.categorie-item.active {
         padding: 10px 20px;
         gap: 10px;
     }
-    .account-container {
+    .header-container .account-container {
         display: none;
     }
     .header-categories_selector {

@@ -2,6 +2,7 @@ import React from "react";
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 
 // Your web app's Firebase configuration
 
@@ -14,9 +15,31 @@ const firebaseConfig = {
     appId: "1:1000120687412:web:bb0369d4c19b5bf0b4a361"
 };
 
+class Firebase {
+    constructor() {
+        this.Authapp = initializeApp(firebaseConfig);
+        this.auth = getAuth(this.Authapp);
+        this.provider = new GoogleAuthProvider();
+    }
+    signout = () => {
+        this.auth.signOut();
+    }
 
-// Initialize Firebase
+    signin = () => {
+        this.provider.setCustomParameters({
+            prompt: 'consent'
+        });
+        signInWithRedirect(this.auth, this.provider)
+    }
 
-export const Authapp = initializeApp(firebaseConfig);
+    continuAs = (email) => {
+        this.provider.setCustomParameters({
+            login_hint: email
+        });
+        signInWithRedirect(this.auth, this.provider)
+    }
+}
+
 
 export const GoogleAuthContext = React.createContext();
+export default Firebase;

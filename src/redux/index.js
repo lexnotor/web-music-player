@@ -10,7 +10,7 @@ export const { addAlbum, setAlbum, deleteAlbum } = slices.album_slice.actions;
 export const { addPlaylist, setPlaylist, deletePlaylist } = slices.playlist_slice.actions;
 export const { set_next_link, set_embed, set_show_sidebar } = slices.util_slice.actions;
 export const { setToken } = slices.token_slice.actions;
-export const { set_user_data, delete_user_data} = slices.google_slice.actions;
+export const { set_user_data, delete_user_data } = slices.google_spotify_slice.actions;
 
 /*token middleware */
 export const refleshToken = dispatch => {
@@ -101,6 +101,6 @@ export const store = configureStore({
         playlists: slices.playlist_slice.reducer,
         tokens: slices.token_slice.reducer,
         utils: slices.util_slice.reducer,
-        googleAuth: slices.google_slice.reducer
+        googleSpotifyAuth: slices.google_spotify_slice.reducer
     }
 })

@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { FiChevronDown, FiSearch, FiMenu } from 'react-icons/fi'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
-import { refleshToken, search, set_show_sidebar } from '../../redux';
+import { GoogleAuthContext } from '../../firebase';
+import { delete_user_data, refleshToken, search, set_show_sidebar } from '../../redux';
 import './style.css'
 
 const Header = () => {
@@ -16,6 +17,8 @@ const Header = () => {
     const catRef = useRef();
 
     const location = useLocation();
+
+    const firebase = useContext(GoogleAuthContext);
 
     const changeText =  (e) => {
         setSearchText(e.target.value);
@@ -51,7 +54,10 @@ const Header = () => {
                     ><FiSearch /> </button>
                 </div>
                 <div className='account-container'>
-                    <button className='btn-connexion'>Se connecter</button>
+                    <button 
+                        className='btn-connexion'
+                        onClick={() => dispatch(delete_user_data()) && firebase.signout()}
+                    >Deconnexion</button>
                 </div>
 
             </div>

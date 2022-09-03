@@ -4,13 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
+import Firebase, { GoogleAuthContext } from './firebase';
 import { store } from './redux';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
-    <App />
+        <GoogleAuthContext.Provider value={new Firebase()}>
+            <App />
+        </GoogleAuthContext.Provider>
      </Provider>
 );
 

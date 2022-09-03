@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
-import { set_show_sidebar } from '../../redux'
+import { GoogleAuthContext } from '../../firebase';
+import { delete_user_data, set_show_sidebar } from '../../redux'
 import './style.css';
 
 const Sidebar = () => {
 
     const [showSide] = useSelector(state =>  [state.utils.show_sidebar]);
     const dispatch = useDispatch()
+    const firebase = useContext(GoogleAuthContext)
 
     return (
         <div className={showSide ?'sidebar-container show-side' : 'sidebar-container'}>
@@ -23,8 +25,11 @@ const Sidebar = () => {
             <div>
                 <span>Music lické</span>
             </div>
-            <div className='sidebar-account-container'>
-                <button className='btn-connexion'>Se connecter</button>
+            <div className='account-container'>
+                <button 
+                    className='btn-connexion'
+                    onClick={() => dispatch(delete_user_data()) && firebase.signout() }
+                >Deconnexion</button>
             </div>
         </div>
     )
