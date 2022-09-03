@@ -20,7 +20,7 @@ const Connexion = () => {
 
     useEffect(() => {
         // Obtetntion de l'utilisateur
-        fireAuth.getRedirectResult(firebase.auth)
+        setTimeout(()=>{fireAuth.getRedirectResult(firebase.auth)
             .then((result) => {
                 if (!result) return;
                 // Extraction du Google Token pour les APIs
@@ -57,7 +57,7 @@ const Connexion = () => {
                     })
                 );
             } else setUser(null)
-        })
+        })}, 2000)
     }, [dispatch, firebase])
 
     const connectPopUp =
