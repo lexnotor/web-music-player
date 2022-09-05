@@ -25,7 +25,7 @@ const Track = ({ id }) => {
                 {name.length > 20 ? `${name.slice(0, 19)}...` : name}
             </div>
             <div className='track-artists'>
-                {artists.map( (elm) => <span> {elm.name}, </span> )}
+                {artists.map( (elm, i) => <span key={i}> {elm.name}, </span> )}
             </div>
         </div>
     )
