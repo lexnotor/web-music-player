@@ -7,7 +7,7 @@ const Album = ({ id }) => {
 
     const data = useSelector(state => state.albums).find(album => album.id === id)
     const dispatch = useDispatch();
-    const { images, name } = data;
+    const { images, name, release_date } = data;
 
     return (
         <div className='album-container' onClick={() => dispatch(set_embed({id:id, type:'album'}))}>
@@ -16,6 +16,9 @@ const Album = ({ id }) => {
             </div>
             <div className='album-name-container'>
                 {name.length > 20 ? `${name.slice(0, 19)}...` : name}
+            </div>
+            <div className='album-release-date'>
+                {new Date(release_date).getFullYear()}
             </div>
         </div>
     )

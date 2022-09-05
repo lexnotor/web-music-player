@@ -7,7 +7,7 @@ const Playlist = ({ id }) => {
 
     const data = useSelector(state => state.playlists).find(playlist => playlist.id === id);
     const dispatch = useDispatch();
-    const { images, name } = data;
+    const { images, name, tracks } = data;
 
     return (
         <div className='playlist-container' onClick={() => dispatch(set_embed({id:id, type:'playlist'}))}>
@@ -16,6 +16,9 @@ const Playlist = ({ id }) => {
             </div>
             <div className='art-name-container'>
                 {name.length > 20 ? `${name.slice(0, 19)}...` : name}
+            </div>
+            <div className='pl-tracks'>
+                {tracks && tracks?.total} titres
             </div>
         </div>
     )

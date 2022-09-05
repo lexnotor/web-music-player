@@ -3,6 +3,7 @@
     min-width: 150px;
     max-width: 300px;
     background-color: #222640;
+    background-color: transparent;
     color: white;
     padding: 20px 15px;
     box-sizing: border-box;
@@ -62,6 +63,7 @@
     .sidebar-container .account-container {
         font-size: 0.8em;
         display: block;
+        text-decoration: underline;
     }
 }
 

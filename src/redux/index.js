@@ -8,7 +8,7 @@ export const { addArtiste, setArtiste, deleteArtiste } = slices.artiste_slice.ac
 export const { addTrack, setTrack, deleteTrack } = slices.track_slice.actions;
 export const { addAlbum, setAlbum, deleteAlbum } = slices.album_slice.actions;
 export const { addPlaylist, setPlaylist, deletePlaylist } = slices.playlist_slice.actions;
-export const { set_next_link, set_embed, set_show_sidebar } = slices.util_slice.actions;
+export const { set_next_link, set_embed, set_show_sidebar, set_searching_state } = slices.util_slice.actions;
 export const { setToken } = slices.token_slice.actions;
 export const { set_user_data, delete_user_data } = slices.google_spotify_slice.actions;
 
@@ -61,6 +61,10 @@ export const search = (text, token, adding = false) => {
                     next_albums: data.albums.next,
                     next_playlist: data.playlists.next
                 }));
+                return data
+            })
+            .then(data => {
+                dispatcher(set_searching_state('finish'))
                 return data
             })
             .then(data => { return data })

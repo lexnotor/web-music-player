@@ -134,7 +134,8 @@ export const util_slice = createSlice({
         next_albums: '',
         next_playlist: '',
         embed: [false, ''],
-        show_sidebar: false
+        show_sidebar: false,
+        searching_state: 'finish'
     },
     reducers: {
         set_next_link: (state, action) => {
@@ -150,6 +151,9 @@ export const util_slice = createSlice({
         },
         set_show_sidebar: (state, action) => {
             state.show_sidebar = action.payload;
+        },
+        set_searching_state: (state, action) => {
+            state.searching_state = action.payload;
         }
     }
 })

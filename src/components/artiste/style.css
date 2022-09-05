@@ -3,6 +3,7 @@
     --art-height: 250px;
 }
 .artiste-container {
+    position: relative;
     width: var(--art-width);
     height: var(--art-height);
     font-size: 0.9em;
@@ -31,4 +32,10 @@
 }
 .art-name-container {
     margin: 8px 10px;
+}
+.artist-followers {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: rgba(100, 148, 237, 0.472);
 }

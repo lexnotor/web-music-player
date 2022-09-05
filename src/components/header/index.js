@@ -3,7 +3,8 @@ import { FiChevronDown, FiSearch, FiMenu } from 'react-icons/fi'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import { GoogleAuthContext } from '../../firebase';
-import { delete_user_data, refleshToken, search, set_show_sidebar } from '../../redux';
+import { delete_user_data, refleshToken, search, set_searching_state, set_show_sidebar } from '../../redux';
+import Connexion from '../connexion';
 import './style.css'
 
 const Header = () => {
@@ -24,9 +25,15 @@ const Header = () => {
         setSearchText(e.target.value);
         if (token.expire_at < Date.now()) {
             dispatch(refleshToken);
-        }
-            
+        }  
     }
+
+    const dispatchSearch = () => {
+        if(searchText.trim() ==='') return;
+        dispatch(set_searching_state('pending'));
+        dispatch(search(searchText, token))
+    }
+
     useEffect( ()=> {
         const path = /(\w+)/.exec(location.pathname);
         setSelect(path ? path[0].toUpperCase() : 'ALL');
@@ -50,14 +57,14 @@ const Header = () => {
                     />
                     <button
                         className='btn-search'
-                        onClick={() => dispatch(search(searchText, token))}
+                        onClick={dispatchSearch}
                     ><FiSearch /> </button>
                 </div>
                 <div className='account-container'>
                     <button 
                         className='btn-connexion'
                         onClick={() => dispatch(delete_user_data()) && firebase.signout()}
-                    >Deconnexion</button>
+                    > <Connexion btn /> </button>
                 </div>
 
             </div>
@@ -66,19 +73,19 @@ const Header = () => {
                 <span> <FiChevronDown /> </span>
             </div>
             <div ref={catRef} className='hearder-categories show-cat'>
-                <NavLink to='/' className='categorie-item'>
+                <NavLink to='/search/' className='categorie-item'>
                     <span>All</span>
                 </NavLink>
-                <NavLink to='/albums' className='categorie-item'>
+                <NavLink to='/search/albums' className='categorie-item'>
                     <span>Albums</span>
                 </NavLink>
-                <NavLink to='/tracks' className='categorie-item'>
+                <NavLink to='/search/tracks' className='categorie-item'>
                     <span>Titres</span>
                 </NavLink>
-                <NavLink to='/artists' className='categorie-item'>
+                <NavLink to='/search/artists' className='categorie-item'>
                     <span>Artistes</span>
                 </NavLink>
-                <NavLink to='/playlists' className='categorie-item'>
+                <NavLink to='/search/playlists' className='categorie-item'>
                     <span>Playlists</span>
                 </NavLink>
             </div>

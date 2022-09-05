@@ -4,6 +4,7 @@
 }
 
 .track-container {
+    position: relative;
     width: var(--art-width);
     height: var(--art-height);
     font-size: 0.9em;
@@ -33,4 +34,11 @@
 
 .track-name-container {
     margin: 8px 10px;
+}
+.track-artists {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: rgba(100, 148, 237, 0.472);
+    font-size: 0.8em;
 }

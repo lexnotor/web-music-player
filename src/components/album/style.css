@@ -4,6 +4,7 @@
 }
 
 .album-container {
+    position: relative;
     width: var(--album-width);
     height: var(--album-height);
     font-size: 0.9em;
@@ -33,4 +34,13 @@
 
 .album-name-container {
     margin: 8px 10px;
+}
+
+.album-release-date {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    text-align: right;
+    font-size: 0.8em;
+    color: rgba(100, 148, 237, 0.472);
 }

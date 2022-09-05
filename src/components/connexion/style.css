@@ -23,19 +23,15 @@
     color: white;
     transition: all 0.5s;
 }
-.connect-popup .btn-spotify {
-    background-color: #10BC4C;
+.connect-popup .api-spotify {
+    margin-top: 60px;
+    color: #343434;
 }
 .connect-popup button:hover {
     background-color: white;
     color: rgb(99, 153, 246);
     box-shadow: 0 0 0px rgb(99, 153, 246);
     border: 1px solid rgb(99, 153, 246);
-}
-.connect-popup .btn-spotify:hover {
-    color: #10BC4C;
-    box-shadow: 0 0 0px #10BC4C;;
-    border: 1px solid #10BC4C;;
 }
 
 .connect-popup .photo-profil {
@@ -52,3 +48,16 @@
 .connect-popup .log-as {
     padding-top: 10px;
 }
+
+.connect-loading {
+    width: 100px;
+    height: 100px;
+    border-top: 2px solid rgb(99, 153, 246);
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    border-bottom: 2px solid rgb(99, 153, 246);
+    animation: 1s spinner infinite ease-in-out;
+    margin: 50px auto;
+    border-radius: 50%;
+}
+

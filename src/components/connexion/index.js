@@ -1,29 +1,34 @@
 import React, { useEffect, useContext, useState } from 'react'
+import { FiLogOut } from 'react-icons/fi'
 import './style.css'
 import { GoogleAuthContext } from '../../firebase';
 import * as fireAuth from 'firebase/auth'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { set_user_data, delete_user_data } from '../../redux';
 import googleLogo from '../../asserts/images/google.png'
 import spotifyLogo from '../../asserts/images/spotify.png'
 
-const Connexion = () => {
 
+
+const ConnectPopUp = () => {
     const [user, setUser] = useState(null);
     const dispatch = useDispatch();
-
     const firebase = useContext(GoogleAuthContext);
-
+    const [loader, setLoader] = useState(true);
 
     useEffect(() => {
-        // Obtetntion de l'utilisateur
+        setLoader(true)
+        // Ce useEffect est destiné uniquement au modal de la connex
+        // Si l'utilisateur ne s'est pas deconnecté precedement, on stocke ses données
         firebase.auth.onAuthStateChanged((credential) => {
+            setLoader(false);
             if (credential?.email) setUser(credential);
             else setUser(null);
         });
-        
+        // getRedirectResult() permet de recevoir les données lors d'une connexion
         fireAuth.getRedirectResult(firebase.auth)
             .then((result) => {
+                // result vaut null si l'utilisateur ne s'est pas connecté
                 if (!result) return;
                 // Extraction du Google Token pour les APIs
                 const credential = fireAuth.GoogleAuthProvider.credentialFromResult(result);
@@ -41,10 +46,12 @@ const Connexion = () => {
                     })
                 );
             }).catch(() => {
+                // Si une erreur se produit on efface les données de l'utilisateur dans redux
                 dispatch(delete_user_data());
             });
     }, [dispatch, firebase])
 
+    // On definit le modal de connexion, 
     const connectPopUp =
         <div className='connect-popup'>
             <img src={googleLogo} alt="" className='provider-logo' />
@@ -63,19 +70,52 @@ const Connexion = () => {
                 </div>
             }
 
-            <img src={spotifyLogo} alt="" className='provider-logo' />
-            <button
+            
+            <div
                 onClick={() => firebase.signout()}
-                className='btn-spotify'
-            >Se connecter
-            </button>
+                className='api-spotify'
+            > Spotify APIs 
+            </div>
+            <img src={spotifyLogo} alt="" className='provider-logo' />
         </div>
+    
+    return ( 
+        <>
+            {
+                loader ?
+                    <div className='connect-popup'>
+                        <div className='connect-loading'></div>
+                    </div>
+                    : connectPopUp
+            }
+        </>
+        
+    )
+
+}
+
+const ButtonData = () => {
+    const { displayName } = useSelector(state => state.googleSpotifyAuth);
+
+    const buttonData =
+        <div className='btn-data'>
+            {displayName.length > 10 ? displayName.slice(0, 9)+'... ' : displayName}
+            <FiLogOut />
+        </div>
+    return ( buttonData )
+}
+
+// Ce composant peut être soit un Modal de connexion, soit un bouton indiquant l'utilisateur connecté
+const Connexion = (props) => {
 
     return (
         <>
-            {connectPopUp}
+            { 
+                props.btn ?
+                <ButtonData />
+                : <ConnectPopUp />
+            }
         </>
-
     )
 }
 

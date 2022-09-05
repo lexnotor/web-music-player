@@ -7,7 +7,7 @@ const Artiste = ({id}) => {
 
     const data = useSelector(state => state.artistes).find(art => art.id === id);
     const dispatch = useDispatch();
-    const { images, name } = data;
+    const { images, name, followers } = data;
     
     return (
         <div className='artiste-container' onClick={() => dispatch(set_embed({id:id, type:'artist'}))}>
@@ -16,6 +16,9 @@ const Artiste = ({id}) => {
             </div>
             <div className='art-name-container'>
                 {name.length > 20 ? `${name.slice(0, 19)}...` : name}
+            </div>
+            <div className='artist-followers'>
+                {followers && followers?.total}
             </div>
         </div>
     )

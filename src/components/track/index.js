@@ -7,7 +7,7 @@ const Track = ({ id }) => {
     const data = useSelector(state => state.tracks).find(track => track.id === id);
     const dispatch = useDispatch();
 
-    const { album, name } = data;
+    const { album, name, artists } = data;
 
     const { images } = album;
 
@@ -23,6 +23,9 @@ const Track = ({ id }) => {
 
             <div className='track-name-container'>
                 {name.length > 20 ? `${name.slice(0, 19)}...` : name}
+            </div>
+            <div className='track-artists'>
+                {artists.map( (elm) => <span> {elm.name}, </span> )}
             </div>
         </div>
     )

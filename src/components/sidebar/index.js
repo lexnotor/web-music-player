@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
+import Connexion from '../connexion'
 import { GoogleAuthContext } from '../../firebase';
 import { delete_user_data, set_show_sidebar } from '../../redux'
 import './style.css';
@@ -29,7 +30,7 @@ const Sidebar = () => {
                 <button 
                     className='btn-connexion'
                     onClick={() => dispatch(delete_user_data()) && firebase.signout() }
-                >Deconnexion</button>
+                ><Connexion btn /></button>
             </div>
         </div>
     )
