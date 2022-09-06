@@ -35,8 +35,8 @@ const Header = () => {
     }
 
     useEffect( ()=> {
-        const path = /(\w+)/.exec(location.pathname);
-        setSelect(path ? path[0].toUpperCase() : 'ALL');
+        const path = /search\/(\w+)$/.exec(location.pathname);
+        setSelect(path ? path[1].toUpperCase() : 'ALL');
         catRef.current.classList.toggle('show-cat', false);
     }, [location]);
     

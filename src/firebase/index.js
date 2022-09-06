@@ -7,12 +7,12 @@ import { getAuth, GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
-    apiKey: "AIzaSyB6w1ns59C2mKUFWRtM-FNDfwUD0S4Lb9E",
-    authDomain: "web-music-player-361216.firebaseapp.com",
-    projectId: "web-music-player-361216",
-    storageBucket: "web-music-player-361216.appspot.com",
-    messagingSenderId: "1000120687412",
-    appId: "1:1000120687412:web:bb0369d4c19b5bf0b4a361"
+    apiKey: process.env.REACT_APP_APIKEY,
+    authDomain: process.env.REACT_APP_AUTHDOMAIN,
+    projectId: process.env.REACT_APP_PROJECTID,
+    storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+    appId: process.env.REACT_APP_APPID
 };
 
 class Firebase {
