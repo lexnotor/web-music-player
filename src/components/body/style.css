@@ -1,6 +1,9 @@
 .body-container {
     background-color: #141726;
     background-color: transparent;
+    background-image: url('../../asserts/images/accessoire_bg2.jpg');
+    background-position: bottom;
+    background-size: cover;
     width: 80vw;
     height: 100vh;
     overflow-y: scroll;

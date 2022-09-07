@@ -15,6 +15,7 @@
     margin: 30px 10px;
     box-shadow: 0 0 9px rgba(45, 43, 57, 0.437);
     cursor: pointer;
+    backdrop-filter: blur(1em);
 }
 
 .track-container img {

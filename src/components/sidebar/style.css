@@ -46,6 +46,7 @@
         display: block;
         z-index: 100;
         transform: translateX(-100vw);
+        background-color: rgb(43, 49, 49);
     }
     .sidebar-container.show-side {
         transform: translateX(0vw);
