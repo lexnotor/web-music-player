@@ -2,7 +2,13 @@
   command = "npm run build"
   publish = "/build"
   base ="/"
+
 [[redirects]]
-  from = "/**/*"
-  to = "/index.html"
+  from = "/*"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/search/*"
+  to = "/"
   status = 200
