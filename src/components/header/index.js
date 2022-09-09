@@ -63,7 +63,7 @@ const Header = () => {
                 <div className='account-container'>
                     <button 
                         className='btn-connexion'
-                        onClick={() => dispatch(delete_user_data()) && firebase.signout()}
+                        onClick={() => {dispatch(delete_user_data()); firebase.signout()}}
                     > <Connexion btn /> </button>
                 </div>
 

@@ -22,7 +22,21 @@ const ConnectPopUp = () => {
         // Si l'utilisateur ne s'est pas deconnecté precedement, on stocke ses données
         firebase.auth.onAuthStateChanged((credential) => {
             setLoader(false);
-            if (credential?.email) setUser(credential);
+            if (credential && credential.email) {
+                setUser(credential);
+                console.log(credential);
+                dispatch(set_user_data(
+                    {
+                        provider: 'Google',
+                        displayName: credential.displayName,
+                        email: credential.email,
+                        refreshToken: credential.accessToken,
+                        photoURL: credential.photoURL,
+                        token: credential.accessToken,
+                    })
+                );
+                // accessToken displayName email photoURL 
+            }
             else setUser(null);
         });
         // getRedirectResult() permet de recevoir les données lors d'une connexion
