@@ -17,15 +17,7 @@ const Sidebar = () => {
             <div className='sidebar-close'>
                 <FiArrowLeft onClick={() => dispatch(set_show_sidebar(false))} />
             </div>
-            <div>
-                <span>Accueil</span>
-            </div>
-            <div>
-                <span>Playlists</span>
-            </div>
-            <div>
-                <span>Music lické</span>
-            </div>
+            
             <div className='account-container'>
                 <button 
                     className='btn-connexion'

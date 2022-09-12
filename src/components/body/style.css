@@ -4,7 +4,7 @@
     background-image: url('../../asserts/images/accessoire_bg2.jpg');
     background-position: bottom;
     background-size: cover;
-    width: 80vw;
+    width: 100vw;
     height: 100vh;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -26,7 +26,7 @@
 }
 
 .caroussel {
-    width: 80vw;
+    width: 100%;
     overflow-x: hidden;
     position: relative;
 }
